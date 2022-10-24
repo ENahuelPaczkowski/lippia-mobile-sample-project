@@ -30,4 +30,8 @@ public class LoginSteps extends PageSteps {
         LoginService.doLogin(email, password);
     }
 
+    @Then("Verify logout")
+    public void verifyLogout() {
+        LoginService.isViewLoaded();
+    }
 }

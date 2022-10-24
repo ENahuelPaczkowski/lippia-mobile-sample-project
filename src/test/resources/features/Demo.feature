@@ -1,19 +1,50 @@
+@Demo
 Feature: As a potential client i want to interact with the mobile application
 
-  Scenario Outline: The user starts the application, registers a new user, changes the language, log out of the app and log in to the app.
+  Background:
     Given The app is loaded correctly
+
+  @Register
+  Scenario: Register a random new user
     When The user goes to the Sign Up page
-    And The user registers a new user with: <username>, <email>, <password>
+    And The user registers a new user
     Then Home page is displayed
 
-    When The user changes the language
-    And The user log out of the app
-    Then Login page is displayed
-
+  @Login
+  Scenario Outline: The user log in to the app.
     When The user logs in the application with: <email>, <password>
     Then Home page is displayed
 
-    @Demo
     Examples:
-      | username   | email                | password |
-      | automation | automation@gmail.com | 123456   |
+      | email                | password   |
+      | nahuelpaco@gmail.com | Nahuel.123 |
+
+  @AddTime
+  Scenario Outline: Add time
+    When The user logs in the application with: <email>, <password>
+    Then Home page is displayed
+
+    When click on Add time entry button
+    And Add hours '<hours>'
+    And Add minutes '<minutes>'
+    And Save new time
+    Then Verify added time
+
+    When Delete entry
+    Then verify no time entries
+
+    Examples:
+      | email                | password   | hours | minutes |
+      | nahuelpaco@gmail.com | Nahuel.123 | 05    | 30      |
+
+  @Logout
+  Scenario Outline: The user log in to the app.
+    When The user logs in the application with: <email>, <password>
+    Then Home page is displayed
+
+    When Logout
+    Then Verify logout
+
+    Examples:
+      | email                | password   |
+      | nahuelpaco@gmail.com | Nahuel.123 |

@@ -10,9 +10,9 @@ import cucumber.api.java.en.When;
  */
 public class SignUpSteps extends PageSteps {
 
-    @When("The user registers a new user with: (.*), (.*), (.*)")
-    public void doSignUpProcess(String username, String email, String password) {
-        SignUpService.doSignUp(username, email, password);
+    @When("The user registers a new user")
+    public void registUser() {
+        SignUpService.regist();
     }
 
 }

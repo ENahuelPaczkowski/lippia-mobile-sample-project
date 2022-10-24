@@ -3,6 +3,8 @@ package com.crowdar.examples.services;
 import com.crowdar.core.actions.MobileActionManager;
 import com.crowdar.examples.constants.SignUpConstants;
 
+import java.util.Random;
+
 /**
  * This class contains the business logic.
  * We can have querys, requests or steps to do certain things (how to log into the app).
@@ -10,10 +12,35 @@ import com.crowdar.examples.constants.SignUpConstants;
  */
 public class SignUpService {
 
-    public static void doSignUp(String username, String email, String password){
-        MobileActionManager.setInput(SignUpConstants.USERNAME_INPUT_LOCATOR, username);
+
+    public static void regist() {
+
+        setEmail();
+        setPassword();
+        clickSingup();
+    }
+
+    public static String generateRandomEmail() {
+        String chars = "abcdefghijklmnopqrstuvwxyz";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(8);
+        for (int i = 0; i < 8; i++)
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        return sb.toString()+"@gmail.com";
+    }
+
+    public static void setEmail() {
+        String email = generateRandomEmail();
+
         MobileActionManager.setInput(SignUpConstants.EMAIL_INPUT_LOCATOR, email);
-        MobileActionManager.setInput(SignUpConstants.PASSWORD_INPUT_LOCATOR, password);
+    }
+
+    public static void setPassword() {
+        MobileActionManager.setInput(SignUpConstants.PASSWORD_INPUT_LOCATOR, "123456");
+    }
+
+    public static void clickSingup(){
+        MobileActionManager.waitClickable(SignUpConstants.SIGN_UP_BUTTON_LOCATOR);
         MobileActionManager.click(SignUpConstants.SIGN_UP_BUTTON_LOCATOR);
     }
 }
